@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js" defer></script>
+    <script src="assets/script-vue.js" defer></script>
+    <!-- <script src="assets/script.js" defer></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
+    crossorigin="anonymous" defer></script>
+    <link rel="stylesheet" href="assets/style.css">
+    <title>Carosello</title>
+</head>
+<body>
+    
+    <div class="container">
+        <div class="carousel d-flex">
+            <!-- div immagini -->
+            <div 
+            class="highlighted"
+            @mouseover="stopAutorun"
+            @mouseleave="playAutorun"
+            >
+                <button type="button" class="btn btn-warning reversed_btn">Reversed</button>
+                <div 
+                    v-for="(imageContainer, index) in images" 
+                    class="image_container"
+                    :class="{active: index == activeIndex}"
+                >
+                    <img :src="imageContainer.image" :alt="imageContainer.title">
+                    <span class="title text-light fs-4 fw-bold rounded">{{ imageContainer.title }}</span>
+                    <span class="text text-light fs-6 rounded">{{ imageContainer.text }}</span>
+                </div>
+            </div>
+    
+            <!-- div con le miniature -->
+            <div 
+            class="thumbs d-flex flex-column"
+            @mouseover="stopAutorun"
+            @mouseleave="playAutorun"
+            >
+                <img 
+                v-for="(imageThumb, index) in images"
+                :src="imageThumb.image" 
+                :alt="imageThumb.title" 
+                :class="{active: index == activeIndex}"
+                @click="currentImage(index)"
+                >
+                <div class="controls d-flex flex-column justify-content-between">
+                    <i 
+                        class="bi bi-arrow-up-circle-fill btn btn-up text-light"
+                        @click="prevImage"
+                    ></i>
+                    <i 
+                        class="bi bi-arrow-down-circle-fill btn btn-down text-light"
+                        @click="nextImage"
+                    ></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
